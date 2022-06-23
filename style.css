@@ -737,6 +737,9 @@ input{
 .hide-login{
     display: none !important;
 }
+#captcha{
+    display: none;
+}
 
 /* Settings */
 #settings{

@@ -198,6 +198,7 @@
             if(sidemenuUserList.innerHTML)
                 return;
 
+            $("#table-tooltip").classList.remove("visible");
             $("#observing-nav-tooltip").classList.add("visible");
 
             setTimeout(() => {
@@ -628,33 +629,41 @@
         const modal = $("#login-modal-full");
         const settingsModal = $("#user-settings-modal");
 
-        const login = {
-            wrapper: $("#login-wrapper"),
-            nick: $("#login-name"),
-            pass: $("#login-pass"),
-            confirm: $("#login-confirm"),
-            links: $$("#login-link, #login-link-forgot"),
-            error: $("#login-error")
-        };
-        const register = {
-            wrapper: $("#register-wrapper"),
-            nick: $("#register-name"),
-            mail: $("#register-mail"),
-            pass: $("#register-pass"),
-            confirm: $("#register-confirm"),
-            public: $("#public-checkbox"),
-            link: $("#register-link"),
-            error: $("#register-error")
-        };
-        const forgot = {
-            wrapper: $("#forgot-wrapper"),
-            mail: $("#forgot-mail"),
-            create: $("#forgot-send"),
-            code: $("#forgot-code"),
-            pass: $("#forgot-pass"),
-            confirm: $("#forgot-confirm"),
-            link: $("#forgot-link"),
-            error: $("#forgot-error")
+        const forms = {
+            login: {
+                wrapper: $("#login-wrapper"),
+                nick: $("#login-name"),
+                pass: $("#login-pass"),
+                confirm: $("#login-confirm"),
+                link: $$("#login-link, #login-link-forgot"),
+                error: $("#login-error"),
+                toFocus: $("#login-name"),
+                enterConfirmSelectors: "input"
+            },
+            register: {
+                wrapper: $("#register-wrapper"),
+                nick: $("#register-name"),
+                mail: $("#register-mail"),
+                pass: $("#register-pass"),
+                confirm: $("#register-confirm"),
+                public: $("#public-checkbox"),
+                link: $$("#register-link"),
+                error: $("#register-error"),
+                toFocus: $("#register-name"),
+                enterConfirmSelectors: "input"
+            },
+            forgot: {
+                wrapper: $("#forgot-wrapper"),
+                mail: $("#forgot-mail"),
+                create: $("#forgot-send"),
+                code: $("#forgot-code"),
+                pass: $("#forgot-pass"),
+                confirm: $("#forgot-confirm"),
+                link: $$("#forgot-link"),
+                error: $("#forgot-error"),
+                toFocus: $("#forgot-mail"),
+                enterConfirmSelectors: "#forgot-code, #forgot-pass"
+            }
         };
 
         // Check if user still logged
@@ -672,31 +681,20 @@
             });
         })
 
-        login.wrapper.querySelectorAll("input").forEach(function(input){
-            input.addEventListener("keypress", (e) => {
-                if(e.key == "Enter"){
-                    login.confirm.click();
-                }
+        for(const property in forms){
+            forms[property].wrapper.querySelectorAll(forms[property].enterConfirmSelectors).forEach(function(input){
+                input.addEventListener("keypress", (e) => {
+                    if(e.key == "Enter"){
+                        forms[property].confirm.click();
+                    }
+                });
             });
-        });
-        register.wrapper.querySelectorAll("input").forEach(function(input){
-            input.addEventListener("keypress", (e) => {
-                if(e.key == "Enter"){
-                    register.confirm.click();
-                }
-            });
-        });
-        forgot.wrapper.querySelector("#forgot-mail").addEventListener("keypress", (e) => {
+        }
+
+        forms.forgot.wrapper.querySelector("#forgot-mail").addEventListener("keypress", (e) => {
             if(e.key == "Enter"){
-                forgot.create.click();
+                forms.forgot.create.click();
             }
-        });
-        forgot.wrapper.querySelectorAll("#forgot-code, #forgot-pass").forEach(function(input){
-            input.addEventListener("keypress", (e) => {
-                if(e.key == "Enter"){
-                    forgot.confirm.click();
-                }
-            });
         });
         
         // Add focus on transition end
@@ -720,51 +718,46 @@
             sendLoginRequest("logout");
         });
 
-        login.confirm.addEventListener("click", function(){
+        forms.login.confirm.addEventListener("click", function(){
             if(!validateLogin())
                 return;
             
             sendLoginRequest("login");
         });
-        register.confirm.addEventListener("click", function(){
+        forms.register.confirm.addEventListener("click", function(){
             if(!validateRegister())
                 return;
 
             sendLoginRequest("register");
         });
-        forgot.create.addEventListener("click", function(){
+        forms.forgot.create.addEventListener("click", function(){
             if(!validateForgotCreate())
                 return;
 
             sendLoginRequest("forgot-create");
         });
-        forgot.confirm.addEventListener("click", function(){
+        forms.forgot.confirm.addEventListener("click", function(){
             if(!validateForgotConfirm())
                 return;
 
             sendLoginRequest("forgot-confirm");
         });
 
-        login.links.forEach(link => {
-            link.addEventListener("click", function(){
-                login.wrapper.classList.remove("hide-login");
-                register.wrapper.classList.add("hide-login");
-                forgot.wrapper.classList.add("hide-login");
-                login.nick.focus();
+        for(const property in forms){
+            forms[property].link.forEach(link => {
+                link.addEventListener("click", function(){
+                    for(const _property in forms){
+                        if(forms[property] == forms[_property]){
+                            forms[_property].wrapper.classList.remove("hide-login");
+                        } else {
+                            forms[_property].wrapper.classList.add("hide-login");
+                        }
+                    }
+                    
+                    forms[property].toFocus.focus();
+                });
             });
-        });
-        register.link.addEventListener("click", function(){
-            login.wrapper.classList.add("hide-login");
-            register.wrapper.classList.remove("hide-login");
-            forgot.wrapper.classList.add("hide-login");
-            register.nick.focus();
-        });
-        forgot.link.addEventListener("click", function(){
-            login.wrapper.classList.add("hide-login");
-            register.wrapper.classList.add("hide-login");
-            forgot.wrapper.classList.remove("hide-login");
-            forgot.mail.focus();
-        });
+        }
 
         function sendLoginRequest(type){
             let url = ajaxUrl;
@@ -777,28 +770,28 @@
                 case "login":
                     url += "login.php";
 
-                    form.append("nick", login.nick.value);
-                    form.append("pass", login.pass.value);
+                    form.append("nick", forms.login.nick.value);
+                    form.append("pass", forms.login.pass.value);
                     break;
                 case "register":
                     url += "register.php";
                     
-                    form.append("nick", register.nick.value);
-                    form.append("mail", register.mail.value);
-                    form.append("pass", register.pass.value);
-                    form.append("public", register.public.checked);
+                    form.append("nick", forms.register.nick.value);
+                    form.append("mail", forms.register.mail.value);
+                    form.append("pass", forms.register.pass.value);
+                    form.append("public", forms.register.public.checked);
                     break;
                 case "forgot-create":
                     url += "forgot-create.php";
                     
-                    form.append("mail", forgot.mail.value);
+                    form.append("mail", forms.forgot.mail.value);
                     break;
                 case "forgot-confirm":
                     url += "forgot-reset.php";
                     
-                    form.append("mail", forgot.mail.value);
-                    form.append("pass", forgot.pass.value);
-                    form.append("code", forgot.code.value);
+                    form.append("mail", forms.forgot.mail.value);
+                    form.append("pass", forms.forgot.pass.value);
+                    form.append("code", forms.forgot.code.value);
                     break;
                 case "init":
                     url += "login.php";
@@ -840,28 +833,28 @@
 
                     switch(text){
                         case "credentials":
-                            toggleError("Wrong credentials", login.error);
+                            toggleError("Wrong credentials", forms.login.error);
                             break;
                         case "mail-exists":
-                            toggleError("Email is taken", register.error);
+                            toggleError("Email is taken", forms.register.error);
                             break;
                         case "nick-exists":
-                            toggleError("Nick is taken", register.error);
+                            toggleError("Nick is taken", forms.register.error);
                             break;
                         case "empty":
-                            toggleError("All values are mandatory", register.error);
+                            toggleError("All values are mandatory", forms.register.error);
                             break;
                         case "not-found":
-                            toggleError("Not found", login.error);
+                            toggleError("Not found", forms.login.error);
                             break;
                         case "forgot-not-found":
-                            toggleError("Not found", forgot.error);
+                            toggleError("Not found", forms.forgot.error);
                             break;
                         case "forgot-sent":
-                            toggleError("Email sent", forgot.error);
+                            toggleError("Email sent", forms.forgot.error);
                             break;
                         case "forgot-countdown":
-                            toggleError("Email was already sent", forgot.error);
+                            toggleError("Email was already sent", forms.forgot.error);
                             break;
                         case "logged-out":
                             location.reload();
@@ -875,51 +868,17 @@
         }
 
         function validateLogin(){
-            if(!login.nick.value){
-                toggleError("Empty nickname", login.error);
+            if(!forms.login.nick.value){
+                toggleError("Empty nickname", forms.login.error);
                 return false;
             }
-            if(login.nick.value.trim() != login.nick.value){
-                toggleError("Nickname cannot start or end with space", login.error);
-                return false;
-            }
-
-            if(!login.pass.value){
-                toggleError("Empty password", login.error);
+            if(forms.login.nick.value.trim() != forms.login.nick.value){
+                toggleError("Nickname cannot start or end with space", forms.login.error);
                 return false;
             }
 
-            return true;
-        }
-
-        function validateForgotCreate(){
-            if(!forgot.mail.value){
-                toggleError("Empty email", forgot.error);
-                return false;
-            }
-            if(!forgot.mail.value.match(/.+@.+/)){
-                toggleError("Wrong email format", forgot.error);
-                return false;
-            }
-            if(forgot.mail.value.trim() != forgot.mail.value){
-                toggleError("Email cannot start or end with space", forgot.error);
-                return false;
-            }
-
-            return true;
-        }
-        function validateForgotConfirm(){
-            if(!forgot.pass.value){
-                toggleError("Empty password", forgot.error);
-                return false;
-            }
-            if(forgot.pass.value.length < 4){
-                toggleError("Password is 4 characters minimum", forgot.error);
-                return false;
-            }
-
-            if(forgot.code.value.length != 8){
-                toggleError("Code has 8 characters", forgot.error);
+            if(!forms.login.pass.value){
+                toggleError("Empty password", forms.login.error);
                 return false;
             }
 
@@ -927,34 +886,69 @@
         }
 
         function validateRegister(){
-            if(!register.pass.value){
-                toggleError("Empty password", register.error);
+            if(!forms.register.nick.value){
+                toggleError("Empty nickname", forms.register.error);
                 return false;
             }
-            if(register.pass.value.length < 4){
-                toggleError("Password is 4 characters minimum", register.error);
-                return false;
-            }
-
-            if(!register.nick.value){
-                toggleError("Empty nickname", register.error);
-                return false;
-            }
-            if(register.nick.value.trim() != register.nick.value){
-                toggleError("Nickname cannot start or end with space", register.error);
+            if(forms.register.nick.value.trim() != forms.register.nick.value){
+                toggleError("Nickname cannot start or end with space", forms.register.error);
                 return false;
             }
 
-            if(!register.mail.value){
-                toggleError("Empty email", register.error);
+            if(!forms.register.mail.value){
+                toggleError("Empty email", forms.register.error);
                 return false;
             }
-            if(!register.mail.value.match(/.+@.+/)){
-                toggleError("Wrong email format", register.error);
+            if(!forms.register.mail.value.match(/.+@.+/)){
+                toggleError("Wrong email format", forms.register.error);
                 return false;
             }
-            if(register.mail.value.trim() != register.mail.value){
-                toggleError("Email cannot start or end with space", register.error);
+            if(forms.register.mail.value.trim() != forms.register.mail.value){
+                toggleError("Email cannot start or end with space", forms.register.error);
+                return false;
+            }
+
+            if(!forms.register.pass.value){
+                toggleError("Empty password", forms.register.error);
+                return false;
+            }
+            if(forms.register.pass.value.length < 4){
+                toggleError("Password is 4 characters minimum", forms.register.error);
+                return false;
+            }
+
+            return true;
+        }
+
+        function validateForgotCreate(){
+            if(!forms.forgot.mail.value){
+                toggleError("Empty email", forms.forgot.error);
+                return false;
+            }
+            if(!forms.forgot.mail.value.match(/.+@.+/)){
+                toggleError("Wrong email format", forms.forgot.error);
+                return false;
+            }
+            if(forms.forgot.mail.value.trim() != forms.forgot.mail.value){
+                toggleError("Email cannot start or end with space", forms.forgot.error);
+                return false;
+            }
+
+            return true;
+        }
+        
+        function validateForgotConfirm(){
+            if(forms.forgot.code.value.length != 8){
+                toggleError("Code has 8 characters", forms.forgot.error);
+                return false;
+            }
+
+            if(!forms.forgot.pass.value){
+                toggleError("Empty password", forms.forgot.error);
+                return false;
+            }
+            if(forms.forgot.pass.value.length < 4){
+                toggleError("Password is 4 characters minimum", forms.forgot.error);
                 return false;
             }
 

@@ -24,6 +24,7 @@
     }    
 
     Db::sanitizeArray($_POST);
+    Main::validate($_POST);
     
     $mailOrNick = trim($_POST["nick"]);
     $pass = $_POST["pass"];

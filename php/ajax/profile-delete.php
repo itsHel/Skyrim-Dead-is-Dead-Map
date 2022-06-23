@@ -7,9 +7,12 @@
 
     session_start();
 
+    if(!($_SESSION["user"] ?? ""))
+        die;
+
     require "../database.php";
     	
-    $nick = $_SESSION["user"] ?? "";
+    $nick = $_SESSION["user"];
 
     $cmd = "DELETE FROM map_users WHERE nick = '".$nick."'";
     if($err = Db::query($cmd)){ Db::dbError($err, $cmd, __FILE__, __LINE__); }

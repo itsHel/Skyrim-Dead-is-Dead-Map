@@ -13,13 +13,11 @@
 
             return $loginObj;
         }
+
+        static function validate($POST){
+            if(isset($POST["captcha"])){
+                die();
+            }
+        }
     }
 
-    // static function validate($post){
-    //     if(!isset($post["captcha"]) || $post["captcha"]){
-    //         die();
-    //     }
-    //     if(($post["real"] ?? 0) != "rendered"){
-    //         die();
-    //     }
-    // }

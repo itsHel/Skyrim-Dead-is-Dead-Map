@@ -14,6 +14,7 @@
     require "../database.php";
     
     Db::sanitizeArray($_POST);
+    Main::validate($_POST);
 	
     $nick = trim($_POST["nick"]);
     $mail = trim($_POST["mail"]);

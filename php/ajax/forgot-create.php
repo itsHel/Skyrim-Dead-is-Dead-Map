@@ -8,9 +8,11 @@
 */
 
     require "../mail.php";
+    require "../main.php";
     require "../database.php";
 
     Db::sanitizeArray($_POST);
+    Main::validate($_POST);
 
     $mail = $_POST["mail"];
 

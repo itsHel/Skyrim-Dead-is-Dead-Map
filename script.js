@@ -1,5 +1,8 @@
 'use strict';
 
+// TODO
+//  - table search ?
+
 (function(){
     // localStorage used: localStorage["scale"], localStorage["mapType"], localStorage["tableVisited"], localStorage["observedUsers"]
 
@@ -53,9 +56,9 @@
 
     function init(){
         $("nav").style.width = "calc(100vw - " + (window.innerWidth - document.documentElement.clientWidth) + "px)";
-        
+
         map.style.transform = scalling[mapType];
-        
+
         document.documentElement.style.setProperty("--counter-size", counterSize + "px");
         
         setupSidemenu();
@@ -226,7 +229,7 @@
 
                 let index = 0;
                 let listHtml = "";
-                
+
                 for(let i = 0; i < data.length; i++){
                     if(!user){
                         insertCounter(data[i].x, data[i].y, data[i].scale, data[i].count);
@@ -339,6 +342,10 @@
             createTable(data, true);
         });
 
+        refreshInterval = setInterval(() => {
+            refreshUsers();
+        }, 60_000);             // SQL query looks for records updated in last minute
+
         $("#table-icon").addEventListener("click", function(){
             if(modal.classList.contains(showModalClass)){
                 modal.classList.remove(showModalClass);
@@ -346,10 +353,6 @@
                 modal.classList.add(showModalClass);
             }
         });
-
-        refreshInterval = setInterval(() => {
-            refreshUsers();
-        }, 60_000);             // SQL query looks for records updated in last minute
 
         function createTable(data, first = false){
             const tableWrapper = $("#user-table-wrapper-under");
@@ -363,9 +366,6 @@
                     id: "user-table",
                     defaultOrder: "count",
                     firstRender: first,
-                    // search: {
-                    //     placeholder: "Hello..."
-                    // }
                 }
             )
 
@@ -405,6 +405,7 @@
                     if(data.deaths.length){
                         data.deaths.forEach(death => {
                             let userIndex = -1;
+
                             for(let i = 0; i < loadedUsers; i++){
                                 if(loadedUsers[i].nick == death.nick){
                                     userIndex = i;
@@ -480,13 +481,6 @@
         }
 
         function addTableListeners(table){
-            // table.querySelector("thead tr").addEventListener("click", function(){
-            //     // Do everytime ????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
-            //     loadedUsers.forEach(user => {
-            //         table.querySelector(".row[data-nick='" + addSingleQuoteSlashes(user.nick) + "'").classList.add("user-loaded");
-            //     });
-            // });
-
             table.addEventListener("click", function(e){
                 if(!e.target.closest("th"))
                     return;
@@ -573,7 +567,6 @@
                                 }
 
                                 let newHtml = createRows(data);
-                                
                                 usersTable.element.querySelector("tbody").insertAdjacentHTML("beforeend", newHtml);
                                 
                                 markUsers();

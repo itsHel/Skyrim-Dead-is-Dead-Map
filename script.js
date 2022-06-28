@@ -20,10 +20,11 @@
     const showModalClass = "show-modal";
     const imgDir = "";
     const counterSize = 32;
+    const tableRowsLoadCount = 50;
     const ajaxUrl = "php/ajax/";
     const scalling = {
-        "https://www.gamebanshee.com/skyrim/mapofskyrim/skyrimmap.png": "none",
-        "https://images.uesp.net/e/ef/SR-map-Skyrim.jpg": "translate(-0.85%, 0.65%) scale(1.05, 1.135)"
+        "map-marked.png": "none",
+        "map-original.jpg": "translate(-0.85%, 0.65%) scale(1.05, 1.135)"
     }
 
     var dragging = false;
@@ -375,8 +376,13 @@
 
             tableWrapper.scrollTo(0, 0);
 
-            markUsers();
-            setupTableScrollObserver();
+            if(usersTable.element.querySelector(".row").length != 0){
+                markUsers();
+                setupTableScrollObserver();
+                $("#table-icon").classList.remove("disabled");
+            } else {
+                $("#table-icon").classList.add("disabled");
+            }
         }
 
         function markUsers(){
@@ -571,7 +577,9 @@
                                 
                                 markUsers();
 
-                                scrollObserver.observe($(".row:nth-last-child(" + triggerOnNthFromBottom + ")"));
+                                if(usersTable.element.querySelectorAll(".row").length % tableRowsLoadCount == 0){
+                                    scrollObserver.observe(usersTable.element.querySelector(".row:nth-last-child(" + triggerOnNthFromBottom + ")"));
+                                }
                             });
                         }
                     });
@@ -580,7 +588,9 @@
                 scrollObserver.disconnect();
             }
 
-            scrollObserver.observe($(".row:nth-last-child(" + triggerOnNthFromBottom + ")"));
+            if(usersTable.element.querySelectorAll(".row").length % tableRowsLoadCount == 0){
+                scrollObserver.observe(usersTable.element.querySelector(".row:nth-last-child(" + triggerOnNthFromBottom + ")"));
+            }
         }
     }
 
@@ -799,6 +809,8 @@
 
                     // If successfully logged - json object is returned, otherwise string
                     if(text[0] == "{"){
+                        loadData();
+
                         let user = JSON.parse(text);
                         
                         modal.classList.remove(showModalClass);

@@ -35,6 +35,10 @@ body{
     border-radius: 6px;
 }
 
+.disabled{
+    opacity: 0.5;
+    pointer-events: none;
+}
 nav{
     position:fixed;
     left:0;

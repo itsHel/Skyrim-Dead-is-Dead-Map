@@ -10,10 +10,12 @@
 
     Class Mail
     {
+        const HEADING = "Skyrim - Dead Map";
+
         static function sendMail($type, $vars, $mail){
             switch($type){
                 case "forgot-pass":
-                    $subject = "Forgotten password - DeadMap";
+                    $subject = "Forgotten password - ".self::HEADING;
         
                     $text = "Your code is";
                     $message = self::getMailHtml($subject, $text, $vars["code"]);
@@ -21,18 +23,18 @@
             }
 
             try {
-                $email = new PHPMailer(true);                                    //True param means it will throw exceptions on errors
+                $email = new PHPMailer(true);                                    // True param means it will throw exceptions on errors
 
-                $email->isSMTP();                                                //Send using SMTP
-                // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                       //Enable verbose debug output
-                $email->SMTPAuth   = true;                                       //Enable SMTP authentication
-                $email->Host       = SMTP_HOST;                                  //Set the SMTP server to send through
-                $email->Username   = SMTP_USERNAME;                              //SMTP username
-                $email->Password   = SMTP_PASS;                                  //SMTP password
-                $email->Port       = SMTP_PORT;                                  //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-                $email->SMTPSecure = "tsl";                                      //Enable implicit TLS encryption
+                $email->isSMTP();                                                // Send using SMTP
+                // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                        // Enable verbose debug output
+                $email->SMTPAuth   = true;                                       // Enable SMTP authentication
+                $email->Host       = SMTP_HOST;                                  // Set the SMTP server to send through
+                $email->Username   = SMTP_USERNAME;                              // SMTP username
+                $email->Password   = SMTP_PASS;                                  // SMTP password
+                $email->Port       = SMTP_PORT;                                  // TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                $email->SMTPSecure = "tsl";                                      // Enable implicit TLS encryption
                 
-                $email->setFrom(SMTP_FROM, "DeadMap");
+                $email->setFrom(SMTP_FROM, self::HEADING);
 
                 // Add recipient
                 try {
@@ -71,12 +73,12 @@
                                     <td>
                                         <table align="center" style="border: 40px solid #ffffff;">
                                             <tbody style="font-family:\'Open sans\'">
-                                                <tr><th align="center"><div style="text-align: center; font-family:\'Open sans\';font-weight:700;font-size:32px;margin:0.5rem 0 0rem 0;">DeadMap</div></th></tr>
+                                                <tr><th align="center"><div style="text-align: center; font-family:\'Open sans\';font-weight:700;font-size:32px;margin:1rem 0 0rem 0;">'.self::HEADING.'</div></th></tr>
                                                 <tr><th>&nbsp;</th></tr>
-                                                <tr><th style="border-top:40px solid #ffffff;" align="center"><h3 style="text-align: center; color:#747474; font-family:\'Open sans\' font-size:16px; border-top:30px solid #ffffff;" color="#747474">'.$text.'</h3></th></tr>
-                                                <tr><th align="center" style="text-align: center;"><h2 align="center" style="text-align: center;margin:0; border-top:40px solid #ffffff; border-bottom:20px solid #ffffff;">'.$code.'</h2></th></tr>
+                                                <tr><th style="border-top:40px solid #ffffff;" align="center"><h3 style="text-align: center; color:#747474; font-family:\'Open sans\' font-size:16px; border-top:1px solid #ffffff;" color="#747474">'.$text.'</h3></th></tr>
+                                                <tr><th align="center" style="text-align: center;"><h2 align="center" style="text-align: center;margin:0; border-top:40px solid #ffffff; border-bottom:20px solid #ffffff; color:rgb(29, 183, 238);" color="rgb(29, 183, 238);">'.$code.'</h2></th></tr>
                                                 <!--<tr><th align="center" style="text-align: center;"><h4 align="center" style="text-align: center;">footer</h4></th></tr>-->
-                                                <tr style="line-height: 10px;"><th>&nbsp;</th></tr>
+                                                <tr style="line-height: 1px;"><th>&nbsp;</th></tr>
                                             </tbody>
                                         </table>
                                         <br>

@@ -983,6 +983,8 @@
         form.append("count", count);
 
         fetch(url, { method: "POST", body: form })
+            .then(response => response.text())
+            .then(text => console.log(text))
             .catch(function(err){ console.log(err) });
     }
 

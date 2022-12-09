@@ -84,8 +84,8 @@
             die($err);
         }
 
-        static function errorLog($file, $message, $cmd = "", $function = "", $line = ""){
-            $file = fopen(__DIR__."/../error_log/".$file, "a+");
+        static function errorLog($filename, $message, $cmd = "", $function = "", $line = ""){
+            $file = fopen(__DIR__."/../error_log/".$filename, "a+");
             if(!is_string($message))
                 $message = var_export($message, true);
             $message .= "\n".$cmd;

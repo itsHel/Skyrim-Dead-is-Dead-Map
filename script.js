@@ -403,6 +403,7 @@
             return fetch(url, { method: "POST" })
                 .then((response) => response.text())
                 .then((text) => {
+                console.log(text);
                     if(!text)
                         return;
 

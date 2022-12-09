@@ -21,7 +21,7 @@
     const imgDir = "";
     const counterSize = 32;
     const tableRowsLoadCount = 50;
-    const ajaxUrl = "php/ajax/";
+    const ajaxUrl = "https://ginger-jumpy-mare.glitch.me/";
     const scalling = {
         "map-marked.png": "none",
         "map-original.jpg": "translate(-0.85%, 0.65%) scale(1.05, 1.135)"
@@ -43,6 +43,12 @@
         setupSettings();
     });
     
+    let url = ajaxUrl + "load-data.php";
+    fetch(ajaxUrl)
+        .then(response => response.text())
+        .then(text => console.log(text));
+        .catch(err) => {console.log(err)}
+
     if(map.complete){
         mapWrapper.style.opacity = 1;
         mapWrapper.style.transform = "none";

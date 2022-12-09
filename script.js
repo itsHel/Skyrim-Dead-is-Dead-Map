@@ -468,6 +468,7 @@
             return fetch(url, { method: "POST", body: form })
                 .then((response) => response.text())
                 .then((text) => {
+                console.log(text);
                     if(text)
                         return JSON.parse(text);
                 })

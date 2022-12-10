@@ -808,7 +808,7 @@
             fetch(url, { method: "POST", body: form })
                 .then((response) => response.text())
                 .then((text) => {
-
+console.log(text);
                     // If successfully logged - json object is returned, otherwise string
                     if(text[0] == "{"){
                         loadData();

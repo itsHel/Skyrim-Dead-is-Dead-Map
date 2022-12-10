@@ -21,7 +21,7 @@
     const imgDir = "";
     const counterSize = 32;
     const tableRowsLoadCount = 50;
-    const ajaxUrl = "https://aluminum-curse-ixia.glitch.me/ajax/";
+    const ajaxUrl = "php/ajax/";
     const scalling = {
         "map-marked.png": "none",
         "map-original.jpg": "translate(-0.85%, 0.65%) scale(1.05, 1.135)"
@@ -403,7 +403,6 @@
             return fetch(url, { method: "POST" })
                 .then((response) => response.text())
                 .then((text) => {
-                console.log(text);
                     if(!text)
                         return;
 
@@ -468,7 +467,6 @@
             return fetch(url, { method: "POST", body: form })
                 .then((response) => response.text())
                 .then((text) => {
-                console.log(text);
                     if(text)
                         return JSON.parse(text);
                 })
@@ -808,7 +806,7 @@
             fetch(url, { method: "POST", body: form })
                 .then((response) => response.text())
                 .then((text) => {
-console.log(text);
+
                     // If successfully logged - json object is returned, otherwise string
                     if(text[0] == "{"){
                         loadData();
@@ -983,8 +981,6 @@ console.log(text);
         form.append("count", count);
 
         fetch(url, { method: "POST", body: form })
-            .then(response => response.text())
-            .then(text => console.log(text))
             .catch(function(err){ console.log(err) });
     }
 

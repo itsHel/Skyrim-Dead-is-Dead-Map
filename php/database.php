@@ -137,7 +137,7 @@
                     pass_reset_updated DATETIME
                 )";
             $cmds[] =
-                "CREATE TABLE IF NOT EXISTS map_deaths(
+                "CREATE TABLE IF NOT EXISTS map_data(
                     id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                     nick VARCHAR(255),
                     x INT(8),
@@ -149,12 +149,8 @@
                 )";
 
             // Dummy data
-            $cmds[] = "INSERT INTO `map_users` VALUES (w,w);";
-            $cmds[] = "INSERT INTO `map_users` VALUES (admin,admin);";
-            $cmds[] = "INSERT INTO `map_data` VALUES (500,500,1);";
-            $cmds[] = "INSERT INTO `map_data` VALUES (500,500,1);";
-            $cmds[] = "INSERT INTO `map_data` VALUES (500,500,1);";
-            $cmds[] = "INSERT INTO `map_data` VALUES (600,600,1);";
+            $cmds[] = "INSERT INTO `map_users` (nick, pass) VALUES ('w','w'), ('admin','admin');";
+            $cmds[] = "INSERT INTO `map_data` (nick, x, y, count) VALUES ('w', 500,500,1), ('w', 400,400,12), ('w', 700,700,5), ('admin',600,600,1), ('w', 1000,1000,22);";
 
             foreach($cmds as $cmd){
                 if(!$conn->query($cmd)){

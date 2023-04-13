@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Skyrim - Dead is Dead Map</title>
+        <link rel=icon href="img/skull.svg">
+        
+        <meta name="description" content="Mark your Skyrim deaths on a map and compare to other players">
+        <meta name="og:description" content="Mark your Skyrim deaths on a map and compare to other players">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no"/>
+        <meta name="title" content="Skyrim - Dead is Dead Map">   
+        <meta name="og:title" content="Skyrim - Dead is Dead Map">   
+	    <meta name="google-site-verification" content="034t3S4O7oLWmuxt4D19e5igyzjETLa3-ZdodipwZMg" />
+        
+        <script src="uti/select.js" async></script>
+        <link rel="stylesheet" href="uti/select.min.css">
+        <script src="uti/table.js" defer></script>
+        <link rel="stylesheet" href="uti/table.css">
+
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js" defer></script>
+    </head>
+	
+    <body>
+        <nav>
+            <div class=left>
+                <span class=logo>Dead is Dead</span>
+            </div>
+
+            <div class=right>
+                <div>
+                    <select id=type-select>
+                        <option value="img/map-marked.png">Marked</option>
+                        <option value="img/map-original.jpg">Original</option>
+                    </select>
+                </div>
+
+                <div id=scale-wrapper>
+                    <div class=ico id=search-ico><svg viewBox="1 1 20 20" fill="#ffffff"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg></div>
+                    <div id=scale><span id=scale-val></span>%</div>
+                    <button class=minus><span>&minus;</span></button>
+                    <button class=plus><span>&#43;</span></button>
+                </div>
+
+                <div id=count>
+                    Deaths: <span id=count-val></span>
+                </div>
+
+                <div id=login-icons>
+                    <svg id=login-svg viewBox="8 8 32 32"><title>Login</title><path d="M24 23.95Q20.7 23.95 18.6 21.85Q16.5 19.75 16.5 16.45Q16.5 13.15 18.6 11.05Q20.7 8.95 24 8.95Q27.3 8.95 29.4 11.05Q31.5 13.15 31.5 16.45Q31.5 19.75 29.4 21.85Q27.3 23.95 24 23.95ZM8 40V35.3Q8 33.4 8.95 32.05Q9.9 30.7 11.4 30Q14.75 28.5 17.825 27.75Q20.9 27 24 27Q27.1 27 30.15 27.775Q33.2 28.55 36.55 30Q38.1 30.7 39.05 32.05Q40 33.4 40 35.3V40ZM11 37H37V35.3Q37 34.5 36.525 33.775Q36.05 33.05 35.35 32.7Q32.15 31.15 29.5 30.575Q26.85 30 24 30Q21.15 30 18.45 30.575Q15.75 31.15 12.6 32.7Q11.9 33.05 11.45 33.775Q11 34.5 11 35.3ZM24 20.95Q25.95 20.95 27.225 19.675Q28.5 18.4 28.5 16.45Q28.5 14.5 27.225 13.225Q25.95 11.95 24 11.95Q22.05 11.95 20.775 13.225Q19.5 14.5 19.5 16.45Q19.5 18.4 20.775 19.675Q22.05 20.95 24 20.95ZM24 16.45Q24 16.45 24 16.45Q24 16.45 24 16.45Q24 16.45 24 16.45Q24 16.45 24 16.45Q24 16.45 24 16.45Q24 16.45 24 16.45Q24 16.45 24 16.45Q24 16.45 24 16.45ZM24 37Q24 37 24 37Q24 37 24 37Q24 37 24 37Q24 37 24 37Q24 37 24 37Q24 37 24 37Q24 37 24 37Q24 37 24 37Z"/></svg>
+                    <svg id=settings-svg viewBox="2 2 43 43"><title>Settings</title><path d="M27.3 44H20.7Q20.15 44 19.725 43.65Q19.3 43.3 19.2 42.75L18.4 37.7Q17.45 37.35 16.4 36.75Q15.35 36.15 14.55 35.5L9.9 37.65Q9.35 37.9 8.8 37.725Q8.25 37.55 7.95 37L4.65 31.15Q4.35 30.65 4.5 30.1Q4.65 29.55 5.1 29.2L9.4 26.05Q9.3 25.6 9.275 25.025Q9.25 24.45 9.25 24Q9.25 23.55 9.275 22.975Q9.3 22.4 9.4 21.95L5.1 18.8Q4.65 18.45 4.5 17.9Q4.35 17.35 4.65 16.85L7.95 11Q8.25 10.45 8.8 10.275Q9.35 10.1 9.9 10.35L14.55 12.5Q15.35 11.85 16.4 11.25Q17.45 10.65 18.4 10.35L19.2 5.25Q19.3 4.7 19.725 4.35Q20.15 4 20.7 4H27.3Q27.85 4 28.275 4.35Q28.7 4.7 28.8 5.25L29.6 10.3Q30.55 10.65 31.625 11.225Q32.7 11.8 33.45 12.5L38.1 10.35Q38.65 10.1 39.2 10.275Q39.75 10.45 40.05 11L43.35 16.8Q43.65 17.3 43.525 17.875Q43.4 18.45 42.9 18.8L38.6 21.85Q38.7 22.35 38.725 22.925Q38.75 23.5 38.75 24Q38.75 24.5 38.725 25.05Q38.7 25.6 38.6 26.1L42.9 29.2Q43.35 29.55 43.5 30.1Q43.65 30.65 43.35 31.15L40.05 37Q39.75 37.55 39.2 37.725Q38.65 37.9 38.1 37.65L33.45 35.5Q32.65 36.15 31.625 36.775Q30.6 37.4 29.6 37.7L28.8 42.75Q28.7 43.3 28.275 43.65Q27.85 44 27.3 44ZM24 30.5Q26.7 30.5 28.6 28.6Q30.5 26.7 30.5 24Q30.5 21.3 28.6 19.4Q26.7 17.5 24 17.5Q21.3 17.5 19.4 19.4Q17.5 21.3 17.5 24Q17.5 26.7 19.4 28.6Q21.3 30.5 24 30.5ZM24 27.5Q22.55 27.5 21.525 26.475Q20.5 25.45 20.5 24Q20.5 22.55 21.525 21.525Q22.55 20.5 24 20.5Q25.45 20.5 26.475 21.525Q27.5 22.55 27.5 24Q27.5 25.45 26.475 26.475Q25.45 27.5 24 27.5ZM24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24ZM21.8 41H26.2L26.9 35.4Q28.55 35 30.025 34.15Q31.5 33.3 32.7 32.1L38 34.4L40 30.8L35.3 27.35Q35.5 26.5 35.625 25.675Q35.75 24.85 35.75 24Q35.75 23.15 35.65 22.325Q35.55 21.5 35.3 20.65L40 17.2L38 13.6L32.7 15.9Q31.55 14.6 30.1 13.725Q28.65 12.85 26.9 12.6L26.2 7H21.8L21.1 12.6Q19.4 12.95 17.925 13.8Q16.45 14.65 15.3 15.9L10 13.6L8 17.2L12.7 20.65Q12.5 21.5 12.375 22.325Q12.25 23.15 12.25 24Q12.25 24.85 12.375 25.675Q12.5 26.5 12.7 27.35L8 30.8L10 34.4L15.3 32.1Q16.5 33.3 17.975 34.15Q19.45 35 21.1 35.4Z"/></svg>
+                </div>
+                <div id=table-icon class=disabled>
+                    <svg viewBox="4 2 44 44"><title>Leaderboard</title><path d="M7.5 38.5H16.5V21.5H7.5ZM19.5 38.5H28.5V9.5H19.5ZM31.5 38.5H40.5V25.5H31.5ZM4.5 41.5V18.5H16.5V6.5H31.5V22.5H43.5V41.5Z"/></svg>
+                </div>
+            </div>
+        </nav>
+
+        <div id=map-wrapper>
+            <img data-width="2720" data-height="1935" id=map src="img/map-marked.png">
+        </div>
+
+        <div id=sidemenu-wrapper class=side-hidden>
+            <div id=sidemenu-toggle>
+                <svg viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z"/></svg>
+            </div>
+            
+            <div id=sidemenu>
+                <div id=sidemenu-nav>
+                    <div id=nav-item-user class="sidemenu-nav-item active" data-showid=sidemenu-user>Me</div>
+                    <div id=nav-item-data class="sidemenu-nav-item" data-showid=sidemenu-data>Observing</div>
+                </div>
+                <div id=sidemenu-user class="sidemenu-part active">
+                    <ul id=sidemenu-list></ul>
+                </div>
+                <div id=sidemenu-data class="sidemenu-part">
+                    <ul id=sidemenu-user-list></ul>
+                </div>
+            </div>
+        </div>
+
+        <div id=loading>
+            <div class="circle one"></div>
+            <div class="circle two"></div>
+            <div class="circle three"></div>
+        </div>
+
+        <div id=login-modal-full class=modal>
+            <div id=login-wrapper class="login-part-wrapper">
+                <div class="login-part-wrapper-under">
+                    <div class=name-wrapper>
+                        <label>
+                            <input id="login-name" placeholder="_">
+                            <div class=modal-label-text>Nick/Email</div>
+                        </label>
+                    </div>
+                    <div class=pass-wrapper>
+                        <label>
+                            <input id="login-pass" placeholder="_">
+                            <div class=modal-label-text>Password</div>
+                        </label>
+                        <div class=pass-hide-toggle>
+                            <span class=pass-hide-text>Hide</span>
+                            <span class=pass-show-text>Show</span>
+                        </div>
+                    </div>
+                    <div class=submit-button-wrapper>
+                        <div id=login-error class=login-part-error></div>
+                        <button id=login-confirm>Ok</button>
+                    </div>
+                    <div id=register-link class=login-part-link>Register</div>
+                    <div id=forgot-link class=login-part-link>Forgot password</div>
+                </div>
+            </div>
+
+            <div id=register-wrapper class="hide-login login-part-wrapper">
+                <div class="login-part-wrapper-under">
+                    <div class=name-wrapper>
+                        <label>
+                            <input id="register-name" placeholder="_">
+                            <div class=modal-label-text>Nick</div>
+                        </label>
+                    </div>
+                    <div class=mail-wrapper>
+                        <label>
+                            <input id="register-mail" placeholder="_">
+                            <div class=modal-label-text>Email</div>
+                        </label>
+                    </div>
+                    <div class=pass-wrapper>
+                        <label>
+                            <input id="register-pass" placeholder="_">
+                            <div class=modal-label-text>Password</div>
+                        </label>
+                        <div class=pass-hide-toggle>
+                            <span class=pass-hide-text>Hide</span>
+                            <span class=pass-show-text>Show</span>
+                        </div>
+                    </div>
+                    <div class=public-setting-wrapper>
+                        <label class=custom-checkbox-label>
+                            <input id=public-checkbox class=custom-checkbox type=checkbox>
+                            <span class=custom-checkbox-wrapper>
+                                <span class=background></span>
+                                <svg></svg>
+                            </span>
+                            Public profile
+                        </label>
+
+                        <div class=public-info>
+                            ?
+                            <div class=tooltip>
+                                <div class=tooltip-text>Public profile is visible to other users by Nickname, Email is hidden</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=submit-button-wrapper>
+                        <div id=register-error class=login-part-error></div>
+                        <button id=register-confirm>Ok</button>
+                    </div>
+                    <div id=login-link class=login-part-link>Login</div>
+                </div>
+            </div>
+
+            <div id=forgot-wrapper class="hide-login login-part-wrapper">
+                <div class="login-part-wrapper-under">
+                    <div class=name-wrapper>
+                        <label>
+                            <input id="forgot-mail" placeholder="_">
+                            <div class=modal-label-text>Email</div>
+                        </label>
+                    </div>
+                    <button id=forgot-send>Send code</button>
+                    <div class=mail-wrapper>
+                        <label>
+                            <input id="forgot-code" placeholder="_">
+                            <div class=modal-label-text>Code</div>
+                        </label>
+                    </div>
+                    <div class=pass-wrapper>
+                        <label>
+                            <input id="forgot-pass" placeholder="_">
+                            <div class=modal-label-text>New password</div>
+                        </label>
+                        <div class=pass-hide-toggle>
+                            <span class=pass-hide-text>Hide</span>
+                            <span class=pass-show-text>Show</span>
+                        </div>
+                    </div>
+                    <div class=submit-button-wrapper>
+                        <div id=forgot-error class=login-part-error></div>
+                        <button id=forgot-confirm>Ok</button>
+                    </div>
+                    <div id=login-link-forgot class=login-part-link>Login</div>
+                </div>
+            </div>
+            
+            <input id=captcha class=captcha data-solve=4642>
+        </div>
+
+        <div id=user-table-modal class=modal>
+            <div id=table-tooltip class="tooltip first-visit-tooltip">
+                <div class=tooltip-text><b>Tip:</b> Click on Nickname to display user's deaths</div>
+            </div>
+            <div id=user-table-wrapper>
+                <div id=user-table-wrapper-under></div>
+            </div>
+        </div>
+
+        <div id=user-settings-modal class=modal>
+            <div id=user-settings-wrapper>
+                <div id=settings-nick>
+                    <span id=nick-text></span>
+                    <svg id=logout-svg stroke="white" stroke-width="1" viewBox="8 8 34 32"><title>Logout</title><path d="M18.75 22.5H36.15L31.05 17.4L33.2 15.25L42 24.05L33.3 32.75L31.15 30.6L36.25 25.5H18.75ZM23.55 6V9H9Q9 9 9 9Q9 9 9 9V39Q9 39 9 39Q9 39 9 39H23.55V42H9Q7.8 42 6.9 41.1Q6 40.2 6 39V9Q6 7.8 6.9 6.9Q7.8 6 9 6Z"/></svg>
+                </div>
+                <div id=settings>
+                    <div class=settings-public-setting-wrapper>
+                        <label class=custom-checkbox-label>
+                            <input id=settings-public-checkbox class=custom-checkbox type=checkbox>
+                            <span class="custom-checkbox-wrapper small">
+                                <span class=background></span>
+                                <svg></svg>
+                            </span>
+                            Public
+                        </label>
+
+                        <div class=public-info>
+                            <div class=tooltip>
+                                <div class=tooltip-text>Public profile is visible to other users by Nickname</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id=delete-profile-wrapper>
+                    <div class=delete-profile-part>
+                        <span>Delete profile</span>
+                        <button id=delete-profile>Delete</button>
+                    </div>
+                    <div id=delete-profile-confirm-wrapper class=delete-profile-part>
+                        <span>Are you sure?</span>
+                        <button id=delete-profile-confirm>Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id=observing-nav-tooltip class="tooltip first-visit-tooltip">
+            <div class=tooltip-text>Click on <b>Leaderboard</b> (top right) to add users</div>
+        </div>
+    </body>
+</html>

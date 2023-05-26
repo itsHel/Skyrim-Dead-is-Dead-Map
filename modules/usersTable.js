@@ -33,10 +33,10 @@ export const UsersTable = {
             createTable(data, true);
         });
 
-        refreshInterval = setInterval(() => {
-            refreshUsers();
+//        refreshInterval = setInterval(() => {
+//            refreshUsers();
         //}, 3600_000);             // SQL query looks for records updated in last hour 
-        }, 6_000);             // TEMP
+//        }, 6_000);             // TEMP
 
         $tableIcon.addEventListener("click", function(){
             if($modal.classList.contains(setting.showModalClass)){

@@ -2,10 +2,10 @@
 
 import { setting, global, $main } from "./modules/settings.js";
 import { showAlert, $, $$ } from "./modules/uti.js";
-import { UsersTable } from "./modules/UsersTable.js";
+import { UsersTable } from "./modules/usersTable.js";
 import { setupLogin, logout } from "./modules/login.js";
-import { Counter } from "./modules/Counter.js";
-import { Sidemenu } from "./modules/Sidemenu.js";
+import { Counter } from "./modules/counter.js";
+import { Sidemenu } from "./modules/sidemenu.js";
 
 // localStorages: localStorage["scale"], localStorage["mapType"], localStorage["tableVisited"], localStorage["observedUsers"], localStorage["loginTooltipShown"]
 (function(){

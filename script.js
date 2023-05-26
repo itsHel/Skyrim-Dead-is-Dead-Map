@@ -1,11 +1,11 @@
 'use strict';
 
-import { setting, global, $main } from "/modules/settings";
-import { showAlert, $, $$ } from "./modules/uti";
-import { UsersTable } from "./modules/UsersTable";
-import { setupLogin, logout } from "./modules/login";
-import { Counter } from "./modules/Counter";
-import { Sidemenu } from "./modules/Sidemenu";
+import { setting, global, $main } from "./modules/settings.js";
+import { showAlert, $, $$ } from "./modules/uti.js";
+import { UsersTable } from "./modules/UsersTable.js";
+import { setupLogin, logout } from "./modules/login.js";
+import { Counter } from "./modules/Counter.js";
+import { Sidemenu } from "./modules/Sidemenu.js";
 
 // localStorages: localStorage["scale"], localStorage["mapType"], localStorage["tableVisited"], localStorage["observedUsers"], localStorage["loginTooltipShown"]
 (function(){

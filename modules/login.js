@@ -1,9 +1,9 @@
 import { showAlert, $, $$ } from "./uti.js";
 import { setting, global, $main } from "./settings.js";
 import { loadUserData } from "./loadData.js";
-import { Counter } from "./Counter.js";
-import { Sidemenu } from "./Sidemenu.js";
-import { UsersTable } from "./UsersTable.js";
+import { Counter } from "./counter.js";
+import { Sidemenu } from "./sidemenu.js";
+import { UsersTable } from "./usersTable.js";
 
 const $captcha = $("#captcha");
 const $loginIcons = $("#login-icons");

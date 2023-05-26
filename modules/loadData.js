@@ -1,7 +1,7 @@
 import { showAlert } from "./uti.js";
 import { setting, global, $main } from "./settings.js";
-import { Counter } from "./Counter.js";
-import { Sidemenu } from "./Sidemenu.js";
+import { Counter } from "./counter.js";
+import { Sidemenu } from "./sidemenu.js";
 
 // Empty user = load data for current user, otherwise load assigned user
 export function loadUserData(user = null){

@@ -1,7 +1,7 @@
 import { addSingleQuoteSlashes, escapeSingleQuotes, $, $$ } from "./uti.js";
 import { $main } from "./settings.js";
 import { loadUserData } from "./loadData.js";
-import { UsersTable } from "./UsersTable.js";
+import { UsersTable } from "./usersTable.js";
 
 const $toggle = $("#sidemenu-toggle");
 const $list = $("#sidemenu-list");

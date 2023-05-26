@@ -1,7 +1,7 @@
 import { showAlert, escapeSingleQuotes, $, $$ } from "./uti.js";
 import { setting, global, $main } from "./settings.js";
 import { logout } from "./login.js";
-import { Sidemenu } from "./Sidemenu.js";
+import { Sidemenu } from "./sidemenu.js";
 
 export const Counter = {
     size: 32,

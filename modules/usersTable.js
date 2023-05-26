@@ -1,7 +1,7 @@
 import { showAlert, addSingleQuoteSlashes, escapeSingleQuotes, $, $$ } from "./uti.js";
 import { setting, global } from "./settings.js";
-import { Counter } from "./Counter.js";
-import { Sidemenu } from "./Sidemenu.js";
+import { Counter } from "./counter.js";
+import { Sidemenu } from "./sidemenu.js";
 
 const userColors = ["#cd499c", "#6592cd", "#ab49d4", "#915e88", "#6f67cf", "#40b4ad"];
 const tableRowsLoadCount = 50;

@@ -188,7 +188,8 @@ export function setupLogin(){
             .then((response) => {
                 if(!response.ok)
                     throw new Error;
-console.log(response);
+                    
+                console.log(response);
                 return response.json();
             })
             .then(async (result) => {
@@ -290,8 +291,7 @@ console.log(response);
                 }
             })
             .catch(function(err){
-
-console.log(err);
+                console.log(err);
                 if(type != "init"){
                     logout();
                     showAlert();
@@ -301,8 +301,6 @@ console.log(err);
     }
 
     function validateLogin(){
-// ************************ TEMP ************************
-return true;
         if(!$forms.login.nick.value){
             toggleError("Empty nickname", $forms.login.error);
             return false;
@@ -321,8 +319,6 @@ return true;
     }
 
     function validateRegister(){
-// ************************ TEMP ************************
-return true;
         if(!$forms.register.nick.value){
             toggleError("Empty nickname", $forms.register.error);
             return false;
@@ -358,8 +354,6 @@ return true;
     }
 
     function validateForgotCreate(){
-// ************************ TEMP ************************
-return true;
         if(!$forms.forgot.mail.value){
             toggleError("Empty email", $forms.forgot.error);
             return false;
@@ -377,8 +371,6 @@ return true;
     }
     
     function validateForgotConfirm(){
-// ************************ TEMP ************************
-return true;
         if($forms.forgot.code.value.length != 8){
             toggleError("Code has 8 characters", $forms.forgot.error);
             return false;

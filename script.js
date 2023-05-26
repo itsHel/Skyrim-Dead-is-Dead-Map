@@ -1,6 +1,6 @@
 'use strict';
 
-import { setting, global, $main } from "./modules/settings";
+import { setting, global, $main } from "modules/settings";
 import { showAlert, $, $$ } from "./modules/uti";
 import { UsersTable } from "./modules/UsersTable";
 import { setupLogin, logout } from "./modules/login";

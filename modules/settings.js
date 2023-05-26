@@ -1,4 +1,4 @@
-import { $, $$ } from "./uti";
+import { $, $$ } from "./uti.js";
 
 export const $main = {
     map: $("#map"),

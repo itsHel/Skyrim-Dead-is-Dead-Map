@@ -19,6 +19,7 @@ export const UsersTable = {
                                 <th data-column='count'><span>Deaths<ico></span></th>`;
 
         let refreshInterval;
+        let refreshIntervalDelay = 3_600_000;               // SQL query looks for records updated in last hour 
         let scrollObserver = null;
         let searchText = "";
         let order = {
@@ -33,10 +34,13 @@ export const UsersTable = {
             createTable(data, true);
         });
 
-//        refreshInterval = setInterval(() => {
-//            refreshUsers();
-        //}, 3600_000);             // SQL query looks for records updated in last hour 
-//        }, 6_000);             // TEMP
+        if(setting.devMode){
+            refreshIntervalDelay = 5000;
+        }
+
+        refreshInterval = setInterval(() => {
+            refreshUsers();
+        }, refreshIntervalDelay);
 
         $tableIcon.addEventListener("click", function(){
             if($modal.classList.contains(setting.showModalClass)){
@@ -185,7 +189,8 @@ export const UsersTable = {
                 .then((response) => {
                     if(!response.ok)
                         throw new Error;
-    console.log(response);
+                        
+                    setting.devMode && console.log(response);
                     return response.json();
                 })
                 .then((result) => {
@@ -195,7 +200,7 @@ export const UsersTable = {
                     return result.data;
                 })
                 .catch(function(err){
-    console.log(err);
+                    setting.devMode && console.log(err);
                 
                     if(!global.errorShown){
                         showAlert();

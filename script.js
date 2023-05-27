@@ -14,7 +14,6 @@ import { Sidemenu } from "./modules/sidemenu.js";
     const $zoomPlus = $(".plus");
     const $zoomMinus = $(".minus");
 
-    console.log("start");
     let dragging = false;
 
     $main.map.src = setting.imgDir + global.mapType;
@@ -33,10 +32,7 @@ import { Sidemenu } from "./modules/sidemenu.js";
     });
 
     if($main.map.complete){
-        console.log(" MAP COMPLETE");
         showMap();
-    } else {
-        console.log(" MAP NOT COMPLETE");
     }
 
     function showMap(){
@@ -252,7 +248,8 @@ import { Sidemenu } from "./modules/sidemenu.js";
                         throw new Error;
                 })
                 .catch(function(err){ 
-console.log(err);
+                    setting.devMode && console.log(err);
+
                     logout();
                     showAlert();
                     global.errorShown = true;
@@ -276,7 +273,8 @@ console.log(err);
                 }
             })
             .catch(function(err){ 
-    console.log(err);
+                setting.devMode && console.log(err);
+
                 logout();
                 showAlert();
                 global.errorShown = true;
@@ -299,6 +297,8 @@ console.log(err);
 
             dragging = false;
             window.addEventListener("mousemove", mouseMoveGrab);
+
+            // Timeout to prevent mouse cursor to change into grabbing on simple click
             let grabbedTimeout = setTimeout(() => {
                 document.body.classList.add("grabbed");
             }, 100);

@@ -55,6 +55,14 @@ const $forms = {
 };
 
 export function setupLogin(){
+    if(setting.devMode){
+        $forms.login.nickOrMail.value = "x";
+        $forms.login.pass.value = "x";
+        $forms.register.nick.value = "test"
+        $forms.register.mail.value = "test@mail"
+        $forms.register.pass.value = "testpass"
+    }
+
     // Check if user still logged
     sendLoginRequest("init");
 
@@ -188,7 +196,7 @@ export function setupLogin(){
             .then((response) => {
                 if(!response.ok)
                     throw new Error;
-                    
+
                 console.log(response);
                 return response.json();
             })
@@ -301,6 +309,10 @@ export function setupLogin(){
     }
 
     function validateLogin(){
+        if(setting.devMode){
+            return true;
+        }
+
         if(!$forms.login.nick.value){
             toggleError("Empty nickname", $forms.login.error);
             return false;
@@ -319,6 +331,10 @@ export function setupLogin(){
     }
 
     function validateRegister(){
+        if(setting.devMode){
+            return true;
+        }
+
         if(!$forms.register.nick.value){
             toggleError("Empty nickname", $forms.register.error);
             return false;
@@ -354,6 +370,10 @@ export function setupLogin(){
     }
 
     function validateForgotCreate(){
+        if(setting.devMode){
+            return true;
+        }
+
         if(!$forms.forgot.mail.value){
             toggleError("Empty email", $forms.forgot.error);
             return false;
@@ -371,6 +391,10 @@ export function setupLogin(){
     }
     
     function validateForgotConfirm(){
+        if(setting.devMode){
+            return true;
+        }
+        
         if($forms.forgot.code.value.length != 8){
             toggleError("Code has 8 characters", $forms.forgot.error);
             return false;

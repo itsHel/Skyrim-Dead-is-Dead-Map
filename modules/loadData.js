@@ -52,7 +52,7 @@ export function loadUserData(user = null){
             $main.deathCountEl.textContent = index;
         })
         .catch(function(err){ 
-console.log(err);
+            setting.devMode && console.log(err);
 
             if(user){
                 if(!global.errorShown){

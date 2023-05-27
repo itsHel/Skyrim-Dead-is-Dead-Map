@@ -8,6 +8,7 @@ export const $main = {
 }
 
 export const setting = {
+    devMode: true,
     baseImg: $("#type-select option").value,
     dragMultiplier: 1.5,
     showModalClass: "show-modal",
